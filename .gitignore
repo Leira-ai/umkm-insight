@@ -39,6 +39,7 @@ service-account*.json
 .swc/
 .eslintcache
 *.tsbuildinfo
+/supabase/.temp/
 
 # test output and reports
 /coverage/

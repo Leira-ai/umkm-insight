@@ -1,5 +1,5 @@
 begin;
-select plan(14);
+select plan(16);
 
 insert into auth.users (
   instance_id, id, aud, role, email, encrypted_password,
@@ -70,13 +70,22 @@ select throws_ok(
 );
 
 select is(
-  (with changed as (
-     update public.products set name = 'Blocked Rename'
-     where id = '20000000-0000-4000-8300-000000000001'
-     returning 1
-   ) select count(*) from changed),
+  (select count(*) from public.products
+   where id = '20000000-0000-4000-8300-000000000001'
+     and name = 'Blocked Rename'),
   0::bigint,
-  'tenant B update target is invisible'
+  'tenant B update target is invisible before mutation'
+);
+
+update public.products set name = 'Blocked Rename'
+where id = '20000000-0000-4000-8300-000000000001';
+
+select is(
+  (select count(*) from public.products
+   where id = '20000000-0000-4000-8300-000000000001'
+     and name = 'Blocked Rename'),
+  0::bigint,
+  'tenant B remains invisible after blocked update'
 );
 
 select throws_ok(

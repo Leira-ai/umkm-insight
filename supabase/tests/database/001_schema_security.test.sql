@@ -1,5 +1,5 @@
 begin;
-select plan(26);
+select plan(27);
 
 select has_table('public', 'profiles', 'profiles exists');
 select has_table('public', 'businesses', 'businesses exists');
@@ -28,7 +28,8 @@ select ok(not has_table_privilege('authenticated', 'public.businesses', 'INSERT'
 select ok(has_function_privilege('anon', 'public.get_demo_dashboard_v1()', 'EXECUTE'), 'anon can execute safe demo aggregate');
 select ok(not has_function_privilege('anon', 'public.create_business_v1(text)', 'EXECUTE'), 'anon cannot create businesses');
 select ok(not has_schema_privilege('anon', 'private', 'USAGE'), 'anon cannot access private helpers');
-select ok(not has_schema_privilege('authenticated', 'private', 'USAGE'), 'authenticated cannot call private helpers directly');
+select ok(not has_schema_privilege('authenticated', 'private', 'USAGE'), 'authenticated has no direct private schema usage');
+select ok(has_function_privilege('authenticated', 'private.is_active_member(uuid)', 'EXECUTE'), 'authenticated may execute RLS helper through policies');
 
 select * from finish();
 rollback;

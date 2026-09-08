@@ -134,6 +134,10 @@ $$;
 
 revoke all on all functions in schema private from public;
 revoke all on schema private from anon, authenticated;
+grant execute on function private.current_user_id() to authenticated;
+grant execute on function private.is_active_member(uuid) to authenticated;
+grant execute on function private.can_write_business(uuid) to authenticated;
+grant execute on function private.can_manage_business(uuid) to authenticated;
 
 create trigger profiles_set_updated_at
 before update on public.profiles
