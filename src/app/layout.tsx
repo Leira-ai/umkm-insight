@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getSiteUrl } from "@/lib/utils";
 import "./globals.css";
@@ -29,7 +30,7 @@ export const viewport: Viewport = { colorScheme: "light dark", themeColor: [{ me
 
 const themeScript = `(function(){try{var t=localStorage.getItem('umkm-theme');var d=t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d)}catch(e){}})()`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="id" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>

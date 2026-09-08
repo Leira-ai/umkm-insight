@@ -39,7 +39,6 @@ service-account*.json
 .swc/
 .eslintcache
 *.tsbuildinfo
-next-env.d.ts
 
 # test output and reports
 /coverage/
