@@ -1,0 +1,2 @@
+import { Skeleton } from "@/components/ui";
+export default function Loading() { return <main className="mx-auto w-full max-w-6xl p-5 sm:p-8"><div className="flex justify-between"><div><Skeleton className="h-8 w-52"/><Skeleton className="mt-3 h-4 w-72 max-w-full"/></div><Skeleton className="h-11 w-40"/></div><div className="mt-7 grid grid-cols-2 gap-3 lg:grid-cols-4">{Array.from({length:4},(_,i)=><Skeleton key={i} className="h-32"/>)}</div><div className="mt-5 grid gap-5 lg:grid-cols-[1.7fr_1fr]"><Skeleton className="h-80"/><Skeleton className="h-80"/></div></main>; }
